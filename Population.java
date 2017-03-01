@@ -91,16 +91,11 @@ public class Population{
 	{
 		float f = (float)(Math.sin(x) * Math.sin(0.4f * x)
 		        * Math.sin(3.0f * x));
-		if (f < 0)
-			System.out.println("*********** Minus Value *********** " + x);
+		//if (f < 0)
+		//	System.out.println("*********** Minus Value *********** " + x);
+
 		return f;
 	}
-	
-	// If the fitness for the top chromosome is zero then we 
-	// have found a solution to a +2 b +3 c +4 d = 30
-	//public boolean converged(){
-	//	return (population[0].getFitness() == 0);
-	//}
 	
 	// Swap populaiton members
 	public void swap(int i, int k){

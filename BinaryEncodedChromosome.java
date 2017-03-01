@@ -76,7 +76,7 @@ public class BinaryEncodedChromosome{
 			if (genes.get(j)){
 				x += base;
 			}
-			System.out.println("Base = " + base);
+			//System.out.println("Base = " + base);
 			base *= 2;
 		}
 		x /= 128.0f;
