@@ -28,13 +28,13 @@ public class Population{
 		// Create the population of chromosomes
 		population = new BinaryEncodedChromosome[population_size];
 		
-		// Ranomise the population
+		// Randomise the population
 		initialisePopulation();
 		
         // Build a roulette wheel array for selecting parents
 		buildRouletteWheel();
 	}
-	// Ranomise the population
+	// Randomise the population
 	public void initialisePopulation(){
 		// Create an array of integer based value encoded chromosomes
 		// Each chromosome will have an initial random value between 1 - 30
@@ -97,6 +97,7 @@ public class Population{
 		population[i] = population[k];
 		population[k] = temp;
 	}
+	
 	// Sort the population based on their fitness (highest to lowesr)
 	public void sort(){
 		// Selection sort - Ooops should do better
@@ -133,13 +134,16 @@ public class Population{
 			  int locus = 1 + (int)((chromosome_length - 2) * Math.random());
 			  for (int g=0; g < chromosome_length; g++){
  				  if (g < locus)
- 				  	population[i].setGeneAt(g, population[c1].getGeneAt(g)); // Copy from parent c1 up to locus g
+ 				  	// Copy from parent c1 up to locus g
+					population[i].setGeneAt(g, population[c1].getGeneAt(g)); 
  				  else
- 				    population[i].setGeneAt(g, population[c2].getGeneAt(g)); // Copy from parent c2 after locus g
+ 				    // Copy from parent c2 after locus g
+					population[i].setGeneAt(g, population[c2].getGeneAt(g)); 
  			  }
  		  }
        }
      }
+	 
 	 // Carry out mutation on population	 
      public void mutate(){
 	   int num = (int)(population_size * mutationFraction);
@@ -163,6 +167,7 @@ public class Population{
  			}
  		}
      }
+	 
 	 // Called to envoke one complete evolution		 
      public void evolve(){
   	   evaluate();
