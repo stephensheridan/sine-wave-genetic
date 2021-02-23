@@ -1,4 +1,3 @@
-// Integer based, value encoded chromosome
 // S. Sheridan 27/02/2014
 // Institute of Technology Blanchardstown
 
@@ -57,19 +56,16 @@ public class Genetic {
 		// Create a population using particular trial data
 		Population p = new Population(POPULATION_SIZE, CHROMOSOME_LENGTH, CROSSOVER_FRACTION, MUTATION_FRACTION);
 
-		// Each trial will run over 100 generations or until solution has been found
+		// Each trial will run over NUM_GENERATIONS generations
 		for(int gen = 0; gen < NUM_GENERATIONS; gen++){
 			
 			System.out.println("*** Generation " + gen + " ***");
 			
-			p.evolve();
-	    	
-			// Print the populaiton and their fitness values
-			for(int j = 0; j < POPULATION_SIZE; j++){
-				System.out.println("Chromosome[" + j + "] = " + p.getChromosomeAt(j).toString() + " Value = " + p.getChromosomeAt(j).geneToFloat() + " Fitness = " + p.getChromosomeAt(j).getFitness());
-			}
-			
-		}
+			// Evovle and display the population
+			p.evolve(true);
+	    }
+		System.out.println("Best X = " + p.getBestX());
+		System.out.println("Best Y = " + p.getBestY());
 	
 	}
 }
