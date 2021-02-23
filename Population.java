@@ -1,6 +1,8 @@
+// Stephen Sheridan
+// TU Dublin - Blanchardstown Campus
 // Genetic Algorithm Population
 // Based on code by Mark Watson
-// https://github.com/stephensheridan/Java-AI-Book-Code/tree/master/genetic-algorithms
+// https://github.com/mark-watson/Java-AI-Book-Code/tree/master/genetic-algorithms
 
 import java.util.*;
 

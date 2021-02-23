@@ -1,5 +1,5 @@
 // S. Sheridan 27/02/2014
-// Institute of Technology Blanchardstown
+// TU Dublin - Blanchardstown Campus
 
 import java.io.*;
 import java.util.*;

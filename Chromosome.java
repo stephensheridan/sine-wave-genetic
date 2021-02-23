@@ -1,3 +1,6 @@
+// Stephen Sheridan
+// TU Dublin - Blanchardstown Campus
+
 import java.util.*;
 
 public class Chromosome implements Comparable{
@@ -9,12 +12,9 @@ public class Chromosome implements Comparable{
     genes = new BitSet(numGenes);
     randomise();
   }
-  
-  // Just temp
   private void calcFitness(float x){
         fitness =  (float)(Math.sin(x) * Math.sin(0.4f * x) * Math.sin(3.0f * x));
-    }
-
+  }
   public void randomise(){
     for(int i = 0; i < genes.size(); i++){
       if (Math.random() > 0.5)
@@ -72,24 +72,4 @@ public class Chromosome implements Comparable{
           return -1;
         
     }
-  /*public static void main(String[] args){
-    ArrayList<Chromosome> population = new ArrayList<Chromosome>();
-    population.add(new Chromosome(10));
-    population.add(new Chromosome(10));
-    population.add(new Chromosome(10));
-    population.add(new Chromosome(10));
-
-    
-    for(int i = 0; i < population.size(); i++){
-      population.get(i).calcFitness(population.get(i).toFloat());
-      System.out.println(population.get(i).toFloat() + " " + population.get(i).getFitness());
-    }
-    
-    System.out.println("Sorting.....");
-    Collections.sort(population);
-
-    for(int i = 0; i < population.size(); i++){
-      System.out.println(population.get(i).toFloat() + " " + population.get(i).getFitness());
-    }
-  }*/
 }
