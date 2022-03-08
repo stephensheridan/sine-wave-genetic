@@ -17,6 +17,8 @@ public class Population {
   private float crossoverFraction;
   // Control the amount of mutaiton
   private float mutationFraction;
+  // Control how many bits get flipped
+  private float mutationRate;
   // Used to implement roulette wheel selection
   private int [] rouletteWheel;
   private int rouletteWheelSize;
@@ -24,11 +26,12 @@ public class Population {
   private float bestx;
   private float besty;
 
-  public Population(int numGenes, int populationSize,float cFraction, float mFraction){
+  public Population(int numGenes, int populationSize,float cFraction, float mFraction, float mRate){
     this.numGenes = numGenes;
     this.populationSize = populationSize;
     crossoverFraction = cFraction;
     mutationFraction = mFraction;
+    mutationRate = mRate;
     bestx = 0;
     besty = 0;
     // Create the population
@@ -55,6 +58,9 @@ public class Population {
     for(int i = 0; i < rouletteWheel.length; i++){
       System.out.print(rouletteWheel[i] + " ");
     }
+    System.out.println();
+    calcFitness();
+    sortPopulation();
   }
 
   private float fitness(float x){
@@ -76,15 +82,14 @@ public class Population {
     Collections.sort(population);
   }
   public void doCrossovers(){
-    int num = (int)(populationSize * crossoverFraction);
-    for (int i = num-1; i >= 0; i--){
-      //for(int i = populationSize - 1; i > (populationSize-num); i--){
+    int stop = (int)(populationSize - (populationSize * crossoverFraction));
+    for (int i = populationSize - 1; i >= stop; i--){
       int c1 = (int)(rouletteWheelSize * Math.random() * 0.9999f);
       int c2 = (int)(rouletteWheelSize * Math.random() * 0.9999f);
       c1 = rouletteWheel[c1];
       c2 = rouletteWheel[c2];
       if (c1 != c2){
-        int locus = 1 + (int)((numGenes - 2) * Math.random());
+        int locus = (int)(numGenes * Math.random());
         for (int g = 0; g < numGenes; g++){
           if (g < locus)
             population.get(i).setGene(g, population.get(c1).getGene(g));
@@ -100,18 +105,24 @@ public class Population {
     }
   }
   public void doMutations(){
-    int num = (int)(populationSize * mutationFraction);
-    for (int i=0; i<num; i++){
-      int c = (int)(populationSize * Math.random() * 0.99);
-      int g = (int)(numGenes * Math.random() * 0.99);
-        population.get(c).flipGene(g);
+    int stop = (int)(populationSize - (populationSize * crossoverFraction));
+    for (int i = populationSize - 1; i >= stop; i--){
+      if (Math.random() < mutationFraction){
+        for(int j = 0; j < numGenes; j++){
+          if (Math.random() < mutationRate){
+            int g = (int)(numGenes * Math.random());
+            population.get(i).flipGene(g);
+          }
+        }
+      }
     }
   }
   public void doRemoveDuplicates(){
-    for (int i=populationSize - 1; i>3; i--){
-      for (int j=0; j<i; j++){
+    int stop = (int)(populationSize - (populationSize * crossoverFraction));
+    for (int i = populationSize - 1; i >= stop; i--){
+      for (int j=0; j<=i; j++){
         if (population.get(i).compareTo(population.get(j)) == 0){
-          int g = (int)(numGenes * Math.random() * 0.99);
+          int g = (int)(numGenes * Math.random());
           population.get(i).flipGene(g);
           break;
         }
@@ -131,13 +142,13 @@ public class Population {
   public float getBestX(){return bestx;}
   public float getBestY(){return besty;}
   public void evolve(boolean display){
-    calcFitness();
-    sortPopulation();
     if (display)
     	print();
     doCrossovers();
     doMutations();
     doRemoveDuplicates();
+    calcFitness();
+    sortPopulation();
   }
   public void reset(){
     bestx = 0;

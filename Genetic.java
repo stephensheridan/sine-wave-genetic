@@ -8,15 +8,16 @@ public class Genetic {
 	
 	private static  int POPULATION_SIZE = 10; 			// No. of chromosomes in the population
 	private static  int CHROMOSOME_LENGTH = 10; 		// No. of genes per chromosome 
-    private static  float CROSSOVER_FRACTION = 0.7f; 	// Half population is recombined every evolution
-    private static  float MUTATION_FRACTION = 0.1f; 	// 10% of populaiton is mutated
+    private static  float CROSSOVER_FRACTION = 0.9f; 	// 90% of population is recombined every evolution
+    private static  float MUTATION_FRACTION = 0.2f; 	// 20% of populaiton is mutated
+    private static 	float MUTATION_RATE = 0.3f;
 	private static  int NUM_GENERATIONS = 100;			// Number of generations/evolutions
 	
 	private static void arguments(String[] args){
 		switch(args.length){
 			case 0:
 				// Take the default arguments
-				System.out.println("Usage: java Genetic [INT NUM GENERATIONS] {INT POPULATION SIZE} {FLOAT CROSSOVER FRACTION} {FLOAT MUTATION FRACTION}");
+				System.out.println("Usage: java Genetic [INT NUM GENERATIONS] {INT POPULATION SIZE} {FLOAT CROSSOVER FRACTION} {FLOAT MUTATION FRACTION} {FLOAT MUTATION RATE}");
 				System.exit(0);
 			case 1:
 				// Number of generations
@@ -36,12 +37,20 @@ public class Genetic {
 				if (POPULATION_SIZE < 10){System.out.println("Error: Population size must be > 10");System.exit(0);}
 				break;
 			case 4:
-				// Generations, population size, crossover_fraction
+				// Generations, population size, crossover_fraction, mutation_fraction
 				NUM_GENERATIONS = Integer.parseInt(args[0]);
 				POPULATION_SIZE = Integer.parseInt(args[1]);
 				CROSSOVER_FRACTION = (float)Double.parseDouble(args[2]);
 				MUTATION_FRACTION = (float)Double.parseDouble(args[3]);
 				if (POPULATION_SIZE < 10){System.out.println("Error: Population size must be > 10");System.exit(0);}
+			case 5:
+				// Generations, population size, crossover_fraction, mutation_fraction, mutation_rate
+				NUM_GENERATIONS = Integer.parseInt(args[0]);
+				POPULATION_SIZE = Integer.parseInt(args[1]);
+				CROSSOVER_FRACTION = (float)Double.parseDouble(args[2]);
+				MUTATION_FRACTION = (float)Double.parseDouble(args[3]);
+				MUTATION_RATE = (float)Double.parseDouble(args[4]);
+				if (POPULATION_SIZE < 10){System.out.println("Error: Population size must be > 10");System.exit(0);}	
 		}
 		
 	}
@@ -54,7 +63,7 @@ public class Genetic {
 		String results = "";
 		
 		// Create a population using particular trial data
-		Population p = new Population(POPULATION_SIZE, CHROMOSOME_LENGTH, CROSSOVER_FRACTION, MUTATION_FRACTION);
+		Population p = new Population(POPULATION_SIZE, CHROMOSOME_LENGTH, CROSSOVER_FRACTION, MUTATION_FRACTION, MUTATION_RATE);
 
 		// Each trial will run over NUM_GENERATIONS generations
 		for(int gen = 0; gen < NUM_GENERATIONS; gen++){
